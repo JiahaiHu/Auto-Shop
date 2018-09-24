@@ -42,12 +42,14 @@ module FSM(
     always @(posedge clk) begin
         if (insert == 1) begin
             // insert
-            if (coin_val == 2'b01)
+            if (coin_val == 2'b01) begin
                 if (coin_sum + 1 * 2 < SUM_MAX)
                     coin_sum = coin_sum + 1 * 2;
-            else if (coin_val == 2'b10)
+            end
+            else if (coin_val == 2'b10) begin
                 if (coin_sum + 10 * 2 < SUM_MAX)
                     coin_sum = coin_sum + 10 * 2;
+            end
         end
         else begin
             // charge
