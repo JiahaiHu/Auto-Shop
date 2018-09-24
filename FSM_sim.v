@@ -5,15 +5,47 @@ module FSM_sim;
     reg [1:0] coin_val, drink_op;
     wire hold_ind, drink_1_ind, drink_2_ind, drinktk_ind, charge_ind;
     wire [5:0] coin_sum;
+
+    initial begin
+        insert = 0;
+        cancel_flag = 0;
+        coin_val = 0;
+        drink_op = 0;
+
+        clk = 0;
+        forever #20 clk = ~clk;
+    end
     
-    always #1 clk = ~clk;
+    initial begin
+        // // test s1
+        // #10 coin_val = 2'b01;
+        // insert = 1;
+        // #20 coin_val = 2'b00;
+        // insert = 0; // insert 1
+
+        // #20 cancel_flag = 1;
+        // #20 cancel_flag = 0;
+
+        // //test s2
+        // #60 coin_val = 2'b01;
+        // insert = 1;
+        // #100 coin_val = 2'b00;
+        // insert = 0; // insert 3
+
+        // #20 drink_op = 1 ;
+        // #20 drink_op = 0 ;
+
+        // // test s3
+        #10 coin_val = 2'b10;
+        insert = 1;
+        #20 coin_val = 2'b00;
+        insert = 0; // insert 10
+
+        #20 drink_op = 2;
+        #20 drink_op = 0;
+    end
     
-    initial fork
-        #5 coin_val = 2'b01;
-        #10 insert = 1;
-    join
-    
-    FSM(
+    FSM test(
         clk,            // 时钟脉冲信号
         insert,         // 投币脉冲信号
         coin_val,       // 硬币类型
