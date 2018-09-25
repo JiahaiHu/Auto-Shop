@@ -12,7 +12,7 @@ module FSM(
     output reg          drinktk_ind,    // 取饮料指示
     output reg          charge_ind,     // 取零钱或退币指示
     output reg [5:0]    coin_sum        // 投币总值或退币总值(Q1型定点小数:q=x*2)
-    );
+);
     
     parameter DRINK_1 = 5,
               DRINK_2 = 10,
@@ -71,7 +71,6 @@ module FSM(
             endcase
         end
     end
-
 
     // 状态管理
     always @(posedge clk) begin
@@ -163,20 +162,13 @@ module FSM(
                 begin
                     hold_ind = 1;
                     drink_1_ind = 1;
-                    drink_2_ind = 0;
-                    if (drink_op == 1)  // 选择第一种饮料
-                        drinktk_ind = 1;
-                    else if (drink_op == 2)  // 选择第二种饮料
-                        drinktk_ind = 1;
-                    else
-                        drinktk_ind = 0;
-                    if (coin_sum > 0)
-                        charge_ind = 1;
-                    else
-                        charge_ind = 0;
+                    drink_2_ind = 1;
+                    drinktk_ind = 0;
+                    charge_ind = 0;
                 end
             s4:
                 begin
+                    hold_ind = 1;
                     drink_1_ind = 0;
                     drink_2_ind = 0;
 
@@ -196,7 +188,14 @@ module FSM(
                     else
                         drinktk_ind = 0;
                 end
-            default : /* default */;
+            default :
+                begin
+                    hold_ind = 0;
+                    drink_1_ind = 0;
+                    drink_2_ind = 0;
+                    drinktk_ind = 0;
+                    charge_ind = 0;
+                end
         endcase
     end
 
