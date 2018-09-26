@@ -19,18 +19,18 @@ module seven_seg_dec(
             5'b01000: segments = 8'b000_0000_1; // 8
             5'b01001: segments = 8'b000_1100_1; // 9
 
-            5'b10000: segments = 8'b000_0001_1; // 0.
-            5'b10001: segments = 8'b100_1111_1; // 1.
-            5'b10010: segments = 8'b001_0010_1; // 2.
-            5'b10011: segments = 8'b000_0110_1; // 3.
-            5'b10100: segments = 8'b100_1100_1; // 4.
-            5'b10101: segments = 8'b010_0100_1; // 5.
-            5'b10110: segments = 8'b010_0000_1; // 6.
-            5'b10111: segments = 8'b000_1111_1; // 7.
-            5'b11000: segments = 8'b000_0000_1; // 8.
-            5'b11001: segments = 8'b000_1100_1; // 9.
+            5'b10000: segments = 8'b000_0001_0; // 0.
+            5'b10001: segments = 8'b100_1111_0; // 1.
+            5'b10010: segments = 8'b001_0010_0; // 2.
+            5'b10011: segments = 8'b000_0110_0; // 3.
+            5'b10100: segments = 8'b100_1100_0; // 4.
+            5'b10101: segments = 8'b010_0100_0; // 5.
+            5'b10110: segments = 8'b010_0000_0; // 6.
+            5'b10111: segments = 8'b000_1111_0; // 7.
+            5'b11000: segments = 8'b000_0000_0; // 8.
+            5'b11001: segments = 8'b000_1100_0; // 9.
 
-            default: segments = 8'b111_1111_1;  // 8
+            default:  segments = 8'b111_1111_1; // 8
         endcase
     end
 

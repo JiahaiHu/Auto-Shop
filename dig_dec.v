@@ -8,28 +8,24 @@ module dig_dec(
 	wire [7:0] bcd;
 
 	initial begin
-		dig[4] = 0;
-		dig[14] = 0;
-		dig[3] = 0;
+		dig = 0;
+		dig[9] = 1;
 	end
+
+	BCD _bcd(
+		.binary(coin_sum[5:1]),
+		.bcd(bcd)
+	);
 
 	always @(posedge clk) begin
 		if (coin_sum[0] == 1) begin
-			dig[9] = 1;		// is odd
-			dig[2:0] = 3'b101;
+			dig[3:0] = 4'b0101;
 		end
 		else begin
-			dig[9] = 0;
-			dig[2:0] = 3'b000;
+			dig[3:0] = 4'b0000;
 		end
 		dig[13:10] = bcd[7:4];
 		dig[8:5] = bcd[3:0];
 	end
-
-	BCD _bcd(
-		.clk(clk),
-		.binary(coin_sum[5:1]),
-		.bcd(bcd)
-	);
 
 endmodule

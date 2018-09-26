@@ -27,7 +27,7 @@ module main(
         .drink_op(drink_op),
         .cancel_flag(cancel_flag),
         .hold_ind(hold_ind),
-        .drink_1_ind(hold_ind),
+        .drink_1_ind(drink_1_ind),
         .drink_2_ind(drink_2_ind),
         .drinktk_ind(drinktk_ind),
         .charge_ind(charge_ind),

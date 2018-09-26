@@ -24,8 +24,7 @@ module FSM(
               s3 = 3'b011,
               s4 = 3'b100;
     
-    reg [2:0] state, next_state;
-    // reg operator;   // plus:1, minus:0
+    reg [2:0] state;
 
     initial begin
         hold_ind = 0;
@@ -35,7 +34,6 @@ module FSM(
         charge_ind = 0;
         coin_sum = 0;
         state = 0;
-        next_state = 0;
     end
 
     // 投币总值控制
@@ -79,56 +77,55 @@ module FSM(
                 begin
                     if (coin_sum > 0) begin
                         if (coin_sum < 5)
-                            next_state = s1;
+                            state = s1;
                         else if (coin_sum <= 40)
-                            next_state = s3;
+                            state = s3;
                     else
-                        next_state = s0;
+                        state = s0;
                     end
                 end
             s1:
                 begin
                     if (cancel_flag == 1)
-                        next_state = s4;
+                        state = s4;
                     else if (coin_sum >= 5) begin
                         if (coin_sum < 10)
-                            next_state = s2;
+                            state = s2;
                         else if (coin_sum <= 40)
-                            next_state = s3;
+                            state = s3;
                     end
                     else
-                        next_state = s1;
+                        state = s1;
                 end
             s2:
                 begin
                     if (cancel_flag == 1)
-                        next_state = s4;
+                        state = s4;
                     else if (drink_op == 1)
-                        next_state = s4;
+                        state = s4;
                     else if (coin_sum >= 10)
-                        next_state = s3;
+                        state = s3;
                     else
-                        next_state = s2;
+                        state = s2;
                 end
             s3:
                 begin
                     if (cancel_flag == 1)
-                        next_state = s4;
+                        state = s4;
                     else if (drink_op == 1)
-                        next_state = s4;
+                        state = s4;
                     else if (drink_op == 2)
-                        next_state = s4;
+                        state = s4;
                     else
-                        next_state = s3;
+                        state = s3;
                 end
             s4:
                 begin
-                    next_state = s0;
+                    state = s0;
                 end
             default:
-                next_state = s0;
+                state = s0;
         endcase
-        state = next_state;
     end
 
     // 输出控制
