@@ -12,10 +12,10 @@ module main(
     output			drinktk_ind,
     output			charge_ind,
     output [7:0]    AN,
-    output [7:0]    SEG
+    output [7:0]    SEG,
+    output          clk_1HZ
 );
-    wire            clk_1HZ;
-    wire [14:0]     dig;
+    wire [39:0]     dig;
     wire [5:0]		coin_sum;
 
     divider _1HZ(.clk(clk100MHZ), .clk_N(clk_1HZ));

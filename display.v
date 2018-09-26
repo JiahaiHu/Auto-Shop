@@ -2,7 +2,7 @@
 
 module seven_seg_display(
 	input             clk100MHZ,
-    input [14:0]      dig,
+    input [39:0]      dig,
     output [7:0]      SEG,
     output [7:0]      AN
 );

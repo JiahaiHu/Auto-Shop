@@ -3,13 +3,12 @@
 module dig_dec(
 	input				clk,
 	input [5:0]			coin_sum,	// 十进制数
-	output reg [14:0] 	dig
+	output reg [39:0] 	dig
 );
 	wire [7:0] bcd;
 
 	initial begin
 		dig = 0;
-		dig[9] = 1;
 	end
 
 	BCD _bcd(
@@ -26,6 +25,12 @@ module dig_dec(
 		end
 		dig[13:10] = bcd[7:4];
 		dig[8:5] = bcd[3:0];
+		dig[19:15] = 5'b01101;	// O
+		dig[24:20] = 5'b01100;	// L
+		dig[29:25] = 5'b01100;	// L
+		dig[34:30] = 5'b01011;	// E
+		dig[39:35] = 5'b01010;	// H
+		dig[9] = 1;
 	end
 
 endmodule

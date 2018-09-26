@@ -30,7 +30,12 @@ module seven_seg_dec(
             5'b11000: segments = 8'b000_0000_0; // 8.
             5'b11001: segments = 8'b000_1100_0; // 9.
 
-            default:  segments = 8'b111_1111_1; // 8
+            5'b01010: segments = 8'b100_1000_1; // H
+            5'b01011: segments = 8'b011_0000_1; // E
+            5'b01100: segments = 8'b111_0001_1; // L
+            5'b01101: segments = 8'b000_0001_1; // O
+
+            default:  segments = 8'b111_1111_1;
         endcase
     end
 

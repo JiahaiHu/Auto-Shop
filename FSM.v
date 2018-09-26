@@ -40,17 +40,17 @@ module FSM(
     always @(posedge clk) begin
         if (insert == 1) begin
             // insert
-            if (coin_val == 2'b01) begin
-                if (coin_sum + 1 * 2 < SUM_MAX)
+            if (coin_val == 2'b01) begin    // insert 1 yuan
+                if (coin_sum + 1 * 2 <= SUM_MAX)
                     coin_sum = coin_sum + 1 * 2;
             end
-            else if (coin_val == 2'b10) begin
-                if (coin_sum + 10 * 2 < SUM_MAX)
+            else if (coin_val == 2'b10) begin   // insert 10 yuan
+                if (coin_sum + 10 * 2 <= SUM_MAX)
                     coin_sum = coin_sum + 10 * 2;
             end
         end
         else begin
-            // charge
+            // choose drink
             case (state)
                 s2:
                     if (drink_op == 1)
@@ -145,29 +145,35 @@ module FSM(
                     drink_1_ind = 0;
                     drink_2_ind = 0;
                     drinktk_ind = 0;
-                    charge_ind = 0;
+
+                    if (cancel_flag == 1)
+                        charge_ind = 1;
+                    else
+                        charge_ind = 0;
                 end
             s2:
                 begin
                     hold_ind = 1;
                     drink_1_ind = 1;
                     drink_2_ind = 0;
-                    drinktk_ind = 0;
-                    charge_ind = 0;
+
+                    if (cancel_flag == 1)
+                        charge_ind = 1;
+                    else if (drink_op == 1 && coin_sum > 0)
+                        charge_ind = 1;
+                    else
+                        charge_ind = 0;
+
+                    if (drink_op == 1)
+                        drinktk_ind = 1;
+                    else
+                        drinktk_ind = 0;
                 end
             s3:
                 begin
                     hold_ind = 1;
                     drink_1_ind = 1;
                     drink_2_ind = 1;
-                    drinktk_ind = 0;
-                    charge_ind = 0;
-                end
-            s4:
-                begin
-                    hold_ind = 1;
-                    drink_1_ind = 0;
-                    drink_2_ind = 0;
 
                     if (cancel_flag == 1)
                         charge_ind = 1;
@@ -184,6 +190,14 @@ module FSM(
                         drinktk_ind = 1;
                     else
                         drinktk_ind = 0;
+                end
+            s4:
+                begin
+                    hold_ind = 1;
+                    drink_1_ind = 0;
+                    drink_2_ind = 0;
+                    drinktk_ind = drinktk_ind;
+                    charge_ind = charge_ind;
                 end
             default :
                 begin
