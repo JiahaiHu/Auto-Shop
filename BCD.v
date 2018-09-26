@@ -6,7 +6,7 @@ module BCD(
 	output [7:0] 	bcd     // 十位数[7:4],个位数[3:0]
 );
 
-	reg [3:0] count5 = 4;
+	reg [2:0] count5 = 4;
 	reg [7:0] ShiftReg = 0;
 
     always @(posedge clk) begin

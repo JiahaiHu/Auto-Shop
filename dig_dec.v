@@ -7,16 +7,20 @@ module dig_dec(
 );
 	wire [7:0] bcd;
 
-	always @(posedge clk) begin
+	initial begin
 		dig[4] = 0;
 		dig[14] = 0;
+		dig[3] = 0;
+	end
+
+	always @(posedge clk) begin
 		if (coin_sum[0] == 1) begin
 			dig[9] = 1;		// is odd
-			dig[3:0] = 4'b0101;
+			dig[2:0] = 3'b101;
 		end
 		else begin
 			dig[9] = 0;
-			dig[3:0] = 4'b0000;
+			dig[2:0] = 3'b000;
 		end
 		dig[13:10] = bcd[7:4];
 		dig[8:5] = bcd[3:0];

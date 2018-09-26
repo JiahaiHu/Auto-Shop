@@ -8,7 +8,7 @@ module seven_seg_display(
 );
 	wire		clk_N;
 	wire [2:0]	num;
-	wire [3:0]	data;
+	wire [4:0]	data;
 
 	divider #(5000) _divider(.clk(clk100MHZ), .clk_N(clk_N));
 
