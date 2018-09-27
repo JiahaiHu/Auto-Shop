@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
 module seven_seg_display(
+    input             power,
 	input             clk100MHZ,
     input [39:0]      dig,
     output [7:0]      SEG,
@@ -18,6 +19,6 @@ module seven_seg_display(
 
 	display_sel _ds(.num(num), .dig(dig), .code(data));
 
-	seven_seg_dec _ssd(.data(data), .segments(SEG));
+	seven_seg_dec _ssd(.power(power), .data(data), .segments(SEG));
 
 endmodule

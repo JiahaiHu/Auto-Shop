@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
 module main(
+    input           power,
     input			clk100MHZ,
     input			insert,
 	input [1:0]     coin_val,
@@ -11,16 +12,22 @@ module main(
     output			drink_2_ind,
     output			drinktk_ind,
     output			charge_ind,
+    output          power_ind,
     output [7:0]    AN,
     output [7:0]    SEG,
     output          clk_1HZ
 );
     wire [39:0]     dig;
     wire [5:0]		coin_sum;
+    wire hold;
+
+    assign hold = hold_ind;
+    assign power_ind = power;
 
     divider _1HZ(.clk(clk100MHZ), .clk_N(clk_1HZ));
 
     FSM _FSM(
+        .power(power),
         .clk(clk_1HZ),
         .insert(insert),
         .coin_val(coin_val),
@@ -35,17 +42,18 @@ module main(
     );
 
     dig_dec _dd(
+        .hold(hold),
         .clk(clk100MHZ),
     	.coin_sum(coin_sum),
     	.dig(dig)
     );
 
     seven_seg_display _dis(
+        .power(power),
         .clk100MHZ(clk100MHZ),
         .dig(dig),
         .SEG(SEG),
         .AN(AN)
     );
-
 
 endmodule
